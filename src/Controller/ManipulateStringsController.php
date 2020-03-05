@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Capitalize;
+use App\Entity\emptyone;
 use App\Entity\Masta;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -17,11 +18,11 @@ class ManipulateStringsController extends AbstractController
      */
     public function index()
     {
-
-        if (isset($_POST['dropDown'])) {
-            if ($_POST['dropDown'] == "dash") {
+            if (!isset($_POST['dropDown'])){
+                    $masta = new Masta(new emptyone());
+            } elseif ($_POST['dropDown'] == "dash") {
                 $masta = new Masta(new RemoveSpaces());
-            } else {
+            } elseif ($_POST['dropDown'] == "caps") {
                 $masta = new Masta(new Capitalize());
             }
 
@@ -33,11 +34,6 @@ class ManipulateStringsController extends AbstractController
                 'controller_name' => 'ManipulateStringsController',
                 'theString' => $masta->doTheThing($_POST['input'] ?? ""),
             ]);
-        } else {
-            return $this->render('manipulate_strings/index.html.twig', [
-                'controller_name' => 'ManipulateStringsController',
-                'theString' => "",
-            ]);
         }
     }
-}
+
