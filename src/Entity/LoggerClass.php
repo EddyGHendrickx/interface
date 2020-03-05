@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Monolog\Logger;
 
+use App\Entity\transform;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LoggerRepository")
@@ -31,4 +32,13 @@ class LoggerClass
     {
         return $this->id;
     }
+
+    /**
+     * @return Logger
+     */
+    public function getLogger(): Logger
+    {
+        return $this->logger;
+    }
+
 }

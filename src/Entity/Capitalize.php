@@ -4,9 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-interface transform {
-    public function doIt(string $input);
-}
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CapitalizeRepository")

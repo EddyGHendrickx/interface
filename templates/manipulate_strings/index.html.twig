@@ -15,10 +15,15 @@
     <label for="input">
     <input type="text" name="input">
     </label>
-    <input type="submit">
+        <label for="dropDown">
+        <select name="dropDown" id="">
+            <option value="caps">Weird caps</option>
+            <option value="dash">Dashes</option>
+        </select>
+        </label>
+    <input type="submit" value="INFO">
     </form>
     <p>{{ theString }}</p>
-    <p>{{ spaceLess }}</p>
 
 </div>
 {% endblock %}

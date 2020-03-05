@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Capitalize;
+use App\Entity\Masta;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use App\Entity\RemoveSpaces;
@@ -16,15 +17,27 @@ class ManipulateStringsController extends AbstractController
      */
     public function index()
     {
-        $capitalise = new Capitalize();
-        $dashilise = new RemoveSpaces();
-        $logger = new Logger("logger");
-        $logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/log.info', Logger::INFO));
 
-        return $this->render('manipulate_strings/index.html.twig', [
-            'controller_name' => 'ManipulateStringsController',
-            'theString' => $capitalise->doIt($_POST['input'] ?? ""),
-            'spaceLess' => $dashilise->doIt($_POST['input'] ?? "")
-        ]);
+        if (isset($_POST['dropDown'])) {
+            if ($_POST['dropDown'] == "dash") {
+                $masta = new Masta(new RemoveSpaces());
+            } else {
+                $masta = new Masta(new Capitalize());
+            }
+
+            $logger = new Logger("logger");
+            $logger->pushHandler(new StreamHandler(__DIR__ . '/logs/log.info', Logger::INFO));
+            $logger->info($masta->doTheThing($_POST['input'] ?? ""));
+
+            return $this->render('manipulate_strings/index.html.twig', [
+                'controller_name' => 'ManipulateStringsController',
+                'theString' => $masta->doTheThing($_POST['input'] ?? ""),
+            ]);
+        } else {
+            return $this->render('manipulate_strings/index.html.twig', [
+                'controller_name' => 'ManipulateStringsController',
+                'theString' => "",
+            ]);
+        }
     }
 }
